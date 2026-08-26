@@ -1,0 +1,23 @@
+changes
+
+TIP. Kanon etapu 1. 2026-08-25
+Odyn repo: Trading-Intelligenci-Platform.
+Etapy:
+1. Platforma bez prava torhuvaty. Zapuskaiemo pershoiu.
+2. Masyv danykh dlia ymovirnisnykh modelei.
+3. Pomichnyk po failakh i zalizu.
+Vertykal: arkhitektura -> pidhotovka i normalizatsiia danykh -> okremin rozrakhunkovi moduli -> inzhenerna stadiia -> kod, vidladka, vprovadzhennia.
+Liniini moduli pershoi stadii: lyshe vidbir aktsii u Watchlist
+(Base Universe, Market Context, Long, Short, Range, Watchlist, Entry-Exit, Session).
+Okremo rakhuiut:
+- indykatory
+- korydor u hroshakh (volatylnist ta inshi pokaznyky dlia trader)
+- tochky vkhodu i vykhodu
+- prohnoz rukhu na 3 torhovi dni (ne 4), lyshe dlia Watchlist
+Biblioteka = chytannia kanonichnoho znimka (GET).
+Arkhiv = zapys faktu rishennia (APPEND). Rynok ne dubluiemo v HIL.
+Zberezhennia etap 1: lyshe lokalno. Hot + Archive + okremyi market store.
+Konfidentsiine (Watchlist, komandy, tochky, prohnoz) ne v GitHub i ne v khmaru.
+анон не на місці).
+
+Create repo
