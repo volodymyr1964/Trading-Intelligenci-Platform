@@ -86,11 +86,11 @@ Named-incomplete (architecture later, same volume): Watchlist parameters; Sessio
 Change request vs canon: none.
 Not opened yet: code; screen layouts; database schemas; formulas.
 Next in this volume: architecture of Watchlist, then Session, then Postmarket — still without filling incomplete parameters as if they were final.
-Коли весь цей текст уже замінив старий — напишіть готово.
+.
 
 
 
-Create repo
+
 
 
 Add a follow up
