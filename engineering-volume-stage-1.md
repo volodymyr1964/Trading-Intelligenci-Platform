@@ -86,6 +86,31 @@ Named-incomplete (architecture later, same volume): Watchlist parameters; Sessio
 Change request vs canon: none.
 Not opened yet: code; screen layouts; database schemas; formulas.
 Next in this volume: architecture of Watchlist, then Session, then Postmarket — still without filling incomplete parameters as if they were final.
+## 8. Watchlist architecture (monitor 1)
+Status: architecture accepted 2026-08-28. Parameters named-incomplete. Code: do not write.
+Watchlist is the first stage-1 module with a graphical display. It occupies Monitor 1 (Opportunity Watchlist). Question of the screen: which names are worth looking at?
+Monitor 1 is not Portfolio (monitor 2) and not deep candle analysis (monitor 3). Stage 1 has no trading rights: no BUY/SELL/HOLD/EXIT NOW on this screen.
+### Row
+Two pictures on one row. Do not mix them.
+1. Traffic light (primary Watchlist parameter)
+   - Each stripe fills when the stock meets the next maturity parameter — approach to the entry point.
+   - The last large semaphore lights when entry-point calculation and the stock parameters coincide.
+   - Large semaphore = match of calculations, not an order.
+2. Small chart: about 5 trading days of real price + 3-day forecast line + corridor of constant width.
+   - This is price fact vs forecast, not the entry point.
+Also on the row: symbol; selection source (Long / Short / Range, may be several); main scenario or Conflict; list status (in list / pending / removed) as names only; forecast present or not.
+Click on a row opens a card, not a trade. Confirm and trade buttons are not on this screen.
+Which maturity parameters, how many stripes, colours, and numeric thresholds: named-incomplete. Corridor and forecast formulas: named-incomplete.
+### Data
+Membership and semaphore/chart outputs: confidential store, not GitHub, not cloud.
+Entry-point numbers come from the separate calculator. Watchlist draws them as the traffic light.
+Order: name on the list → entry-point calculation → stripes and large semaphore on the row.
+Draft .docx (Watchlist, Interface) do not override this section. Canon still beats draft.
+Коли блок уже в кінці файлу — напишіть готово.
+
+
+
+Create repo
 
 
 
