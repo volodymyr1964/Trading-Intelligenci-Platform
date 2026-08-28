@@ -106,11 +106,10 @@ Membership and semaphore/chart outputs: confidential store, not GitHub, not clou
 Entry-point numbers come from the separate calculator. Watchlist draws them as the traffic light.
 Order: name on the list → entry-point calculation → stripes and large semaphore on the row.
 Draft .docx (Watchlist, Interface) do not override this section. Canon still beats draft.
-Коли блок уже в кінці файлу — напишіть готово.
 
 
 
-Create repo
+
 
 
 
