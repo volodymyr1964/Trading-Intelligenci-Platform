@@ -1,0 +1,113 @@
+
+checks:
+ 
+  # --- Подключения ---
+ 
+  - code: CONN-IBKR-01
+    name: Соединение с IBKR
+    area: connection
+    fail: нет ответа от TWS
+    action: Запустить TWS, войти в аккаунт, проверить статус подключения
+    critical: true
+ 
+  - code: CONN-IBKR-02
+    name: Подписки на рыночные данные IBKR
+    area: connection
+    fail: подписка неактивна или истекла
+    action: Личный кабинет IBKR - Settings - Market Data Subscriptions, проверить статус
+    critical: true
+ 
+  - code: CONN-POLY-01
+    name: Доступность Polygon
+    area: connection
+    fail: сервис не отвечает или возвращает ошибку
+    action: Проверить интернет-соединение, затем статус сервиса на странице поставщика
+    critical: true
+ 
+  - code: CONN-TV-01
+    name: Доступность TradingView
+    area: connection
+    fail: сервис не отвечает
+    action: Проверить интернет-соединение. При недоступности использовать графики TWS
+    critical: false
+ 
+  # --- Программное обеспечение ---
+ 
+  - code: SW-VER-01
+    name: Версия TWS
+    area: software
+    fail: доступно обновление
+    action: Обновлять только в нерабочий день. Перед обновлением сохранить настройки
+    critical: false
+ 
+  - code: SW-VER-02
+    name: Обновления операционной системы
+    area: software
+    fail: имеются неустановленные обновления
+    action: Установить в нерабочее время. Не устанавливать перед торговым днём
+    critical: false
+ 
+  # --- Рабочее место ---
+ 
+  - code: MON-CONF-01
+    name: Конфигурация мониторов
+    area: workspace
+    fail: определяется не три монитора в Home Mode
+    action: Проверить кабели и питание мониторов, затем настройки экранов в системе
+    critical: true
+ 
+  - code: MON-CONF-02
+    name: Активный режим рабочего места
+    area: workspace
+    fail: активный режим не соответствует заданному в config.yaml
+    action: Переключить режим вручную либо изменить значение в config.yaml
+    critical: false
+ 
+  # --- Ресурсы машины ---
+ 
+  - code: RES-DISK-01
+    name: Свободное место на системном диске
+    area: resources
+    fail: свободно менее thresholds.disk_free_percent
+    action: Освободить место. Проверить каталог загрузок и временные файлы
+    critical: false
+ 
+  - code: RES-MEM-01
+    name: Свободная оперативная память
+    area: resources
+    fail: свободно менее thresholds.memory_free_percent
+    action: Закрыть неиспользуемые приложения перед запуском TWS
+    critical: false
+ 
+  - code: RES-CPU-01
+    name: Загрузка процессора
+    area: resources
+    fail: устойчивая загрузка выше 80% в покое
+    action: Проверить диспетчер задач, завершить фоновые процессы
+    critical: false
+ 
+  # --- Хранилище данных ---
+ 
+  - code: DISK-DATA-01
+    name: Место под рыночные данные
+    area: storage
+    fail: свободно менее thresholds.data_free_percent
+    action: Проверить каталоги с истёкшим сроком по Retention Policy
+    critical: false
+ 
+  # --- Журнал ---
+ 
+  - code: LOG-INT-01
+    name: Записи журнала за предыдущий торговый день
+    area: journal
+    fail: записи отсутствуют
+    action: Проверить, запускались ли модули вчера. Не восстанавливать записи вручную
+    critical: true
+ 
+  - code: LOG-INT-02
+    name: Целостность файлов журнала
+    area: journal
+    fail: файл не читается или структура нарушена
+    action: Восстановить из резервной копии. Повреждённый файл не удалять
+    critical: true
+ 
