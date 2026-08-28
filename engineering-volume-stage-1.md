@@ -106,6 +106,11 @@ Membership and semaphore/chart outputs: confidential store, not GitHub, not clou
 Entry-point numbers come from the separate calculator. Watchlist draws them as the traffic light.
 Order: name on the list → entry-point calculation → stripes and large semaphore on the row.
 Draft .docx (Watchlist, Interface) do not override this section. Canon still beats draft.
+### Card
+Click on a row opens a card of the same instrument, not a trade.
+The graph takes most of the card: 5 trading days of real price + 3-day forecast + corridor.
+Text takes the smallest area: symbol, sources, scenario or Conflict, traffic light (maturity stripes + large match semaphore), selection reason if already provided by selection modules.
+No Confirm, no Buy/Sell. Deep candle analysis is not this card (monitor 3).
 
 
 
