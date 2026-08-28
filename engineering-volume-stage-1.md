@@ -111,6 +111,9 @@ Click on a row opens a card of the same instrument, not a trade.
 The graph takes most of the card: 5 trading days of real price + 3-day forecast + corridor.
 Text takes the smallest area: symbol, sources, scenario or Conflict, traffic light (maturity stripes + large match semaphore), selection reason if already provided by selection modules.
 No Confirm, no Buy/Sell. Deep candle analysis is not this card (monitor 3).
+### Size cap
+Stage 1 Watchlist holds at most 30 names in total (Priority + Extended together).
+Architecture does not fix how many of the 30 are Priority. Selection rules into the 30: named-incomplete.
 
 
 
