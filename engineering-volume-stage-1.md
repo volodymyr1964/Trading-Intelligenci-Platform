@@ -1,22 +1,24 @@
-закінчуеться 
 # TIP. Stage 1 Engineering Volume. Outline. 2026-08-26
-Status: outline accepted (2026-08-26)
+Status: outline accepted (2026-08-26); volume cleaned 2026-08-29
 Source of truth: kanon-etapu-1
 Code: do not write
 Confidential (Watchlist, commands, entry/exit points, forecast): not in this file and not in GitHub
 File rule: only kanon-etapu-1 and this volume. No new working files.
 Protocol: design architecture now. Do not invent missing parameters.
-Named-incomplete (later, same volume): Watchlist, Session, Postmarket, calculator parameters.
+Named-incomplete: maturity parameters, colour codes, calculator formulas, Postmarket, Session details beyond the strip.
+Change request vs kanon-etapu-1: Session is not a linear Watchlist-selection module. The canon file is not edited in this cleanup.
 ## 1. Stage 1 boundary and status dictionary
 Stage 1 = platform without trading rights. No orders. No broker execution. No BUY/SELL/HOLD/EXIT NOW.
 In stage 1:
-- Linear modules: stock selection into Watchlist only. Base Universe, Market Context, Long, Short, Range, Watchlist, Entry-Exit, Session.
-- Separate calculations (not the linear path): indicators; money corridor; entry/exit points; 3-trading-day forecast for Watchlist only.
+- Linear modules (selection into Watchlist only): Base Universe, Market Context, Long, Short, Range, Watchlist, Entry-Exit.
+- Watchlist then runs all day by itself on up to 30 selected names (not bought).
+- Session = already-bought Portfolio names. Not selection. Not a Watchlist helper. May be empty while there are no buys.
+- Separate calculations: indicators; money corridor; entry/exit points; 3-trading-day forecast (not the full universe).
 - Data: local only. Hot + Archive + separate market store.
 - Library = GET canonical snapshot. Archive = APPEND decision fact. Do not copy the market into HIL.
 - Confidential (Watchlist, commands, points, forecast): not in GitHub, not in the cloud.
 Out of stage 1:
-- Trading rights, portfolio, live session commands.
+- Broker execution and live trade commands.
 - Stage 2: dataset for probability models.
 - Stage 3: files-and-hardware assistant.
 Statuses:
@@ -24,12 +26,15 @@ Statuses:
 - draft — the .docx files in the repo
 - approved — after a section of this volume is accepted
 - named-incomplete — in the contour, details not approved
-Canon beats draft when they conflict.
+This volume beats draft when they conflict. Canon beats this volume except the Session change request above.
 ## 2. System contour
-External data → Normalization → Canonical snapshot → Linear selection (Watchlist only) → Watchlist → Four separate calculations.
-Linear selection (selection only): Base Universe → Market Context → Long / Short / Range → Watchlist.
-Entry-Exit and Session sit on this path as selection helpers, not as trade execution.
-Four separate calculations (only after Watchlist exists, only on Watchlist names):
+External data → Normalization → Canonical snapshot → Linear selection → Watchlist → Four separate calculations.
+Linear selection: Base Universe → Market Context → Long / Short / Range → Watchlist.
+Entry-Exit sits on this path as a selection helper, not as trade execution.
+Watchlist accompanies selected names all day. It does not need Session.
+Session is a parallel strip of bought names (Portfolio), not on the selection path.
+Market clock (canonical entity Trading Session: premarket / regular / after-hours) is calendar data, not the Session module.
+Four separate calculations (not the full universe):
 1. Indicators
 2. Money corridor
 3. Entry/exit points
@@ -41,10 +46,10 @@ Confidential results stay local, not in GitHub.
 Library: GET only. Canonical snapshot. Does not hold Watchlist, commands, points, forecast.
 Archive: APPEND only. Decision facts (who/what/when/result id). Does not hold a second copy of the market.
 Market store: market data, local only. HIL must not duplicate this market.
-Confidential (local, never GitHub, never cloud): Watchlist; commands; entry/exit points; forecast.
+Confidential (local, never GitHub, never cloud): Watchlist; Session/Portfolio names; commands; entry/exit points; forecast.
 A module reads Library (GET), may read Market store, publishes its result once. Decision facts go to Archive (APPEND). Confidential results stay in the local confidential store.
 ## 4. Linear modules
-Stage 1 job of this chain: select names into Watchlist. Nothing else.
+Stage 1 job of this chain: select names into Watchlist. Nothing else. Session is not in this chain.
 | Module | One job in stage 1 |
 |---|---|
 | Base Universe | Build the allowed instrument set |
@@ -52,77 +57,62 @@ Stage 1 job of this chain: select names into Watchlist. Nothing else.
 | Long | Candidates for long |
 | Short | Candidates for short |
 | Range | Candidates for range |
-| Watchlist | Merge candidates into one working list |
+| Watchlist | Merge candidates into one working list (max 30) and accompany them all day |
 | Entry-Exit | Selection helper only — not trade execution |
-| Session | Session/calendar context for selection — not live trading |
-Forbidden in this chain: broker orders, portfolio, BUY/SELL/HOLD/EXIT NOW, writing confidential data to GitHub.
-Long, Short, and Range may propose the same name. Watchlist resolves duplicates and keeps the source of inclusion.
-Watchlist, Session (and Postmarket) parameters: named-incomplete.
+Forbidden in this chain: broker orders, BUY/SELL/HOLD/EXIT NOW, writing confidential data to GitHub.
+Long, Short, and Range may propose the same name. Watchlist resolves duplicates and keeps the source of inclusion. If Long and Short both claim the same name: Conflict.
+Watchlist maturity parameters: named-incomplete.
 ## 5. Separate calculations
-These four are not linear selection. They run after Watchlist exists, only on Watchlist names.
+These four are not linear selection. They do not run on the full universe.
 | Calculator | Output | Consumer |
 |---|---|---|
-| Indicators | Indicator values | Trader view; later modules as published facts |
-| Money corridor | Corridor in money (volatility and related trader metrics) | Trader view |
-| Entry/exit points | Numeric points, not an order | Trader view |
-| 3-trading-day forecast | Path forecast for 3 trading days (not 4) | Trader view; Watchlist only |
+| Indicators | Indicator values | Row, Monitor 3 |
+| Money corridor | Corridor in money | Row chart 5+3; Monitor 3 |
+| Entry/exit points | Numeric points, not an order | Watchlist traffic light (entry); Session traffic light (exit); Monitor 3 |
+| 3-trading-day forecast | Path forecast for 3 trading days (not 4) | Row chart; Monitor 3 |
 No calculator may emit BUY/SELL/HOLD/EXIT NOW.
 Entry/exit points ≠ Entry-Exit module.
-Forecast is not a linear module and is not run on the full universe.
-Outputs are confidential: local only.
-Calculator parameters: named-incomplete. Formulas later, same volume.
+Calculator parameters: named-incomplete.
 ## 6. Local storage
 Stage 1 storage is local only. No GitHub. No cloud.
 | Store | Holds | Does not hold |
 |---|---|---|
-| Library | Canonical snapshot (GET) | Watchlist, commands, points, forecast |
+| Library | Canonical snapshot (GET) | Watchlist, Session names, commands, points, forecast |
 | Archive | Decision facts (APPEND) | A second copy of the market |
 | Market store | Market data | HIL duplicate of that market |
-| Confidential store | Watchlist, commands, entry/exit points, forecast | Public repo copies |
-Recovery: Hot continues the current day. Archive shows what was decided. Market store rebuilds prices without HIL. Confidential store restores Watchlist and calculations without GitHub.
+| Confidential store | Watchlist, Session/Portfolio names, commands, entry/exit points, forecast | Public repo copies |
+Recovery: Hot continues the current day. Archive shows what was decided. Market store rebuilds prices without HIL. Confidential store restores lists and calculations without GitHub.
 ## 7. Open decisions and change requests
-Accepted: file rule; sections 1–6 as architecture; section 5 as calculator names and prohibitions, not parameter sheets; protocol.
-Named-incomplete (architecture later, same volume): Watchlist parameters; Session parameters; Postmarket parameters; calculator parameters.
-Change request vs canon: none.
-Not opened yet: code; screen layouts; database schemas; formulas.
-Next in this volume: architecture of Watchlist, then Session, then Postmarket — still without filling incomplete parameters as if they were final.
+Accepted: file rule; sections 1–6, 8–10 as architecture after the 2026-08-29 cleanup; calculator names not parameter sheets.
+Change request vs canon: remove Session from the linear Watchlist-selection list in kanon-etapu-1. Not done in that file yet.
+Named-incomplete: maturity parameters; colour codes; how many of the 30 are Priority; calculator formulas; Postmarket; Session beyond the bought-strip.
+Not opened yet: code; Figma; database schemas.
+Draft .docx (Entry Exit Semaphore, Interface, Watchlist) are not rewritten. This volume replaces them where they conflict.
 ## 8. Watchlist architecture (monitor 1)
-Status: architecture accepted 2026-08-28. Parameters named-incomplete. Code: do not write.
-Watchlist is the first stage-1 module with a graphical display. It occupies Monitor 1 (Opportunity Watchlist). Question of the screen: which names are worth looking at?
-Monitor 1 is not Portfolio (monitor 2) and not deep candle analysis (monitor 3). Stage 1 has no trading rights: no BUY/SELL/HOLD/EXIT NOW on this screen.
+Watchlist = selected names, not bought. First graphical module. Monitor 1. Question: which names are worth looking at?
+It runs all day by itself. Max 30 names (Priority + Extended together). No orders on this screen.
 ### Row
 Two pictures on one row. Do not mix them.
-1. Traffic light (primary Watchlist parameter)
+1. Traffic light (primary Watchlist parameter) = entry point
    - Each stripe fills when the stock meets the next maturity parameter — approach to the entry point.
    - The last large semaphore lights when entry-point calculation and the stock parameters coincide.
    - Large semaphore = match of calculations, not an order.
-2. Small chart: about 5 trading days of real price + 3-day forecast line + corridor of constant width.
-   - This is price fact vs forecast, not the entry point.
-Also on the row: symbol; selection source (Long / Short / Range, may be several); main scenario or Conflict; list status (in list / pending / removed) as names only; forecast present or not.
-Click on a row opens a card, not a trade. Confirm and trade buttons are not on this screen.
-Which maturity parameters, how many stripes, colours, and numeric thresholds: named-incomplete. Corridor and forecast formulas: named-incomplete.
+2. Small chart: about 5 trading days of real price + 3-day forecast line + corridor in money (constant width). Price fact vs forecast, not the entry point.
+Also on the row: symbol; selection source (Long / Short / Range, may be several); main scenario or Conflict; list status (in list / pending / removed) as names only; indicators; forecast present or not.
+Click a ticker: only Monitor 3 changes (detailed analysis). The system keeps running. Not an order. Confirm and trade buttons are not on this screen.
+A card on Monitor 1, if shown, is view only. Graph takes most of the card; text the smallest area.
+Maturity parameters, stripe count, colour codes, corridor/forecast formulas: named-incomplete.
 ### Data
 Membership and semaphore/chart outputs: confidential store, not GitHub, not cloud.
 Entry-point numbers come from the separate calculator. Watchlist draws them as the traffic light.
 Order: name on the list → entry-point calculation → stripes and large semaphore on the row.
-Draft .docx (Watchlist, Interface) do not override this section. Canon still beats draft.
-### Card
-Click on a row opens a card of the same instrument, not a trade.
-The graph takes most of the card: 5 trading days of real price + 3-day forecast + corridor.
-Text takes the smallest area: symbol, sources, scenario or Conflict, traffic light (maturity stripes + large match semaphore), selection reason if already provided by selection modules.
-No Confirm, no Buy/Sell. Deep candle analysis is not this card (monitor 3).
-### Size cap
-Stage 1 Watchlist holds at most 30 names in total (Priority + Extended together).
-Architecture does not fix how many of the 30 are Priority. Selection rules into the 30: named-incomplete.
 ### Colour by selection module
 Long, Short, and Range data use three different colour languages on the row (source mark and traffic light).
 The 5+3 forecast chart does not colour the price line by scenario.
-Long and Short traffic lights are opposite in sign: same meaning (maturity stripes → large match semaphore) with inverted visual.
+Long and Short traffic lights are opposite in sign (same meaning, inverted visual).
 Range is a third colour language, not the opposite of Long or Short.
 If Long and Short both claim the same name: Conflict — do not show two opposite match lights on one row.
-Exact colour codes: named-incomplete.
 ## 9. Monitor 3 analysis
-Status: architecture accepted 2026-08-29. Formulas named-incomplete. Code: do not write.
 Monitor 3 is the detailed analysis view of one ticker. Choosing a ticker only changes what Monitor 3 shows. The rest of the system keeps running. No order, no Confirm, no BUY/SELL/HOLD/EXIT NOW.
 How a ticker appears on Monitor 3:
 - click a ticker on Watchlist or Session; or
@@ -139,35 +129,14 @@ Large candle chart, plus:
 7. Exit point if the ticker is from Session (bought)
 RSI, ADX, ATR stay in selection drafts unless later assigned to this monitor.
 MA periods and level rules: named-incomplete.
-## 10. Watchlist vs Session strips
-Status: architecture accepted 2026-08-29. This section supersedes conflicting lines in sections 4 and 8. Canon file kanon-etapu-1 is not edited here; linear-list wording for Session is a change request.
-Watchlist = selected names, not bought. It runs all day by itself and accompanies up to 30 names (semaphore, 5+3 chart, corridor in money). It does not need the Session module.
+## 10. Session strip (bought names)
 Session = Portfolio names the trader already bought. Not selection. Not a Watchlist helper.
-Market clock (canonical entity Trading Session: premarket / regular / after-hours) is calendar data, not the Session module.
-### Same strip
-Watchlist rows and Session rows use the same strip: indicators, traffic light, chart of 5 real days + 3 forecast days, corridor in money.
-### Traffic light meaning (contradicts section 8)
-Watchlist traffic light = entry point (maturity stripes → large semaphore when entry calculation matches stock parameters).
-Session traffic light = exit point (same visual language, opposite role).
-Long vs Short lights remain opposite in sign. Range is a third colour language.
-Conflict if Long and Short both claim the same Watchlist name.
-### Click
-Click a ticker or type a ticker: only Monitor 3 shows that name for detailed analysis. No other system state changes. Not an order. Supersedes “click opens a card” as a system action. A card on Monitor 1, if shown, is view only.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Stage 1 has no trading rights, so this strip may be empty.
+Same strip as Watchlist: indicators, traffic light, chart of 5 real days + 3 forecast days, corridor in money.
+Session traffic light = exit point (same visual language as Watchlist, opposite role).
+Watchlist light = entry. Session light = exit.
+Market clock (canonical entity Trading Session) is calendar data, not this module.
+Click a Session ticker: only Monitor 3 shows that name. No other system state changes.
 
 
 
