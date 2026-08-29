@@ -8,7 +8,8 @@ Etapy:
 3. Pomichnyk po failakh i zalizu.
 Vertykal: arkhitektura -> pidhotovka i normalizatsiia danykh -> okremin rozrakhunkovi moduli -> inzhenerna stadiia -> kod, vidladka, vprovadzhennia.
 Liniini moduli pershoi stadii: lyshe vidbir aktsii u Watchlist
-(Base Universe, Market Context, Long, Short, Range, Watchlist, Entry-Exit, Session).
+(Base Universe, Market Context, Long, Short, Range, Watchlist, Entry-Exit).
+Session = kupleni aktsii Portfo
 Okremo rakhuiut:
 - indykatory
 - korydor u hroshakh (volatylnist ta inshi pokaznyky dlia trader)
@@ -18,6 +19,6 @@ Biblioteka = chytannia kanonichnoho znimka (GET).
 Arkhiv = zapys faktu rishennia (APPEND). Rynok ne dubluiemo v HIL.
 Zberezhennia etap 1: lyshe lokalno. Hot + Archive + okremyi market store.
 Konfidentsiine (Watchlist, komandy, tochky, prohnoz) ne v GitHub i ne v khmaru.
-анон не на місці).
 
-Create repo
+
+
