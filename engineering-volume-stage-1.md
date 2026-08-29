@@ -121,6 +121,29 @@ Long and Short traffic lights are opposite in sign: same meaning (maturity strip
 Range is a third colour language, not the opposite of Long or Short.
 If Long and Short both claim the same name: Conflict — do not show two opposite match lights on one row.
 Exact colour codes: named-incomplete.
+## 9. Monitor 3 analysis
+Status: architecture accepted 2026-08-29. Formulas named-incomplete. Code: do not write.
+Monitor 3 is the detailed analysis view of one ticker. Choosing a ticker only changes what Monitor 3 shows. The rest of the system keeps running. No order, no Confirm, no BUY/SELL/HOLD/EXIT NOW.
+How a ticker appears on Monitor 3:
+- click a ticker on Watchlist or Session; or
+- the trader types a ticker.
+Typing a ticker does not add it to Watchlist (the 30) and does not make it a bought Session/Portfolio name.
+### Overlay set
+Large candle chart, plus:
+1. Volume
+2. MA20, MA50, MA200
+3. Support
+4. Resistance
+5. Forecast corridor in money (same 5 real days + 3 forecast days as the row chart, expanded)
+6. Entry point if the ticker is from Watchlist
+7. Exit point if the ticker is from Session (bought)
+RSI, ADX, ATR stay in selection drafts unless later assigned to this monitor.
+MA periods and level rules: named-incomplete.
+
+
+
+
+
 
 
 
