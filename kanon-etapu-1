@@ -9,7 +9,7 @@ Etapy:
 Vertykal: arkhitektura -> pidhotovka i normalizatsiia danykh -> okremin rozrakhunkovi moduli -> inzhenerna stadiia -> kod, vidladka, vprovadzhennia.
 Liniini moduli pershoi stadii: lyshe vidbir aktsii u Watchlist
 (Base Universe, Market Context, Long, Short, Range, Watchlist, Entry-Exit).
-Session = kupleni aktsii Portfo
+Session = kupleni aktsii Portfolio, ne vidbir u Watchlist.
 Okremo rakhuiut:
 - indykatory
 - korydor u hroshakh (volatylnist ta inshi pokaznyky dlia trader)
