@@ -139,6 +139,23 @@ Large candle chart, plus:
 7. Exit point if the ticker is from Session (bought)
 RSI, ADX, ATR stay in selection drafts unless later assigned to this monitor.
 MA periods and level rules: named-incomplete.
+## 10. Watchlist vs Session strips
+Status: architecture accepted 2026-08-29. This section supersedes conflicting lines in sections 4 and 8. Canon file kanon-etapu-1 is not edited here; linear-list wording for Session is a change request.
+Watchlist = selected names, not bought. It runs all day by itself and accompanies up to 30 names (semaphore, 5+3 chart, corridor in money). It does not need the Session module.
+Session = Portfolio names the trader already bought. Not selection. Not a Watchlist helper.
+Market clock (canonical entity Trading Session: premarket / regular / after-hours) is calendar data, not the Session module.
+### Same strip
+Watchlist rows and Session rows use the same strip: indicators, traffic light, chart of 5 real days + 3 forecast days, corridor in money.
+### Traffic light meaning (contradicts section 8)
+Watchlist traffic light = entry point (maturity stripes → large semaphore when entry calculation matches stock parameters).
+Session traffic light = exit point (same visual language, opposite role).
+Long vs Short lights remain opposite in sign. Range is a third colour language.
+Conflict if Long and Short both claim the same Watchlist name.
+### Click
+Click a ticker or type a ticker: only Monitor 3 shows that name for detailed analysis. No other system state changes. Not an order. Supersedes “click opens a card” as a system action. A card on Monitor 1, if shown, is view only.
+
+
+
 
 
 
