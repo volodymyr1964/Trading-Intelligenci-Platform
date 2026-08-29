@@ -1,4 +1,4 @@
-
+закінчуеться 
 # TIP. Stage 1 Engineering Volume. Outline. 2026-08-26
 Status: outline accepted (2026-08-26)
 Source of truth: kanon-etapu-1
@@ -114,6 +114,13 @@ No Confirm, no Buy/Sell. Deep candle analysis is not this card (monitor 3).
 ### Size cap
 Stage 1 Watchlist holds at most 30 names in total (Priority + Extended together).
 Architecture does not fix how many of the 30 are Priority. Selection rules into the 30: named-incomplete.
+### Colour by selection module
+Long, Short, and Range data use three different colour languages on the row (source mark and traffic light).
+The 5+3 forecast chart does not colour the price line by scenario.
+Long and Short traffic lights are opposite in sign: same meaning (maturity stripes → large match semaphore) with inverted visual.
+Range is a third colour language, not the opposite of Long or Short.
+If Long and Short both claim the same name: Conflict — do not show two opposite match lights on one row.
+Exact colour codes: named-incomplete.
 
 
 
