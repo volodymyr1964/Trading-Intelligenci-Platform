@@ -148,6 +148,14 @@ Modules do not call each other. A buy or sell is a fact from IBKR into the share
 - Buy in IBKR → name leaves Watchlist and appears on Session (bought).
 - Sell → name leaves Session and is gone. It does not return to Watchlist.
 What happens to remaining Watchlist names at the end of the day is Postmarket. Not discussed in this section.
+## 12. Home and Travel stations
+Status: architecture accepted 2026-08-30. Code: do not write.
+Two hardware stations, one TIP system. Home / Travel buttons switch layout only, not orders.
+Home: PC + three home monitors (TIP). Laptop beside it: Interactive Brokers only.
+Travel: same laptop (IBKR only) + two other travel monitors. Travel monitors are not the home monitors. They are extra TIP screens of the same home system.
+The home PC runs TIP around the clock and owns TIP state (Watchlist, Session, Monitor 3). The laptop does not run TIP. RAM size on the ThinkPad does not change this.
+If the home PC / TIP is down: the laptop keeps working alone so positions can be closed in IBKR. TIP is not required to exit. No second TIP engine on the laptop (not even a live failover brain).
+IBKR read path (section 11) is unchanged.
 
 
 
