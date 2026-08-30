@@ -156,6 +156,23 @@ Travel: same laptop (IBKR only) + two other travel monitors. Travel monitors are
 The home PC runs TIP around the clock and owns TIP state (Watchlist, Session, Monitor 3). The laptop does not run TIP. RAM size on the ThinkPad does not change this.
 If the home PC / TIP is down: the laptop keeps working alone so positions can be closed in IBKR. TIP is not required to exit. No second TIP engine on the laptop (not even a live failover brain).
 IBKR read path (section 11) is unchanged.
+## 13. Postmarket
+Status: architecture accepted 2026-08-30. Formulas and table columns named-incomplete. Code: do not write.
+Postmarket is the phase after the regular session. Not live selection, not a fourth trading screen.
+Watchlist names are not kept after Session ends. The list of 30 is cleared. Kept: the course of events, not a living Watchlist.
+Unsold Session / Portfolio names stay. Postmarket does not sell them and does not clear Monitor 2.
+No orders. Market is not copied into HIL. Archive APPEND of events and module evaluations, local, not GitHub.
+What is in front:
+1. Money-corridor calculator: how it worked during the day (primary).
+2. Three-day forecast versus fact. Original forecast line is not rewritten. Scoring covers today and still-open days of earlier forecasts.
+3. Semaphore behaviour during the day (entry on Watchlist, exit on Session).
+4. Module activity during the day, archived for later analysis.
+Other day snapshots: second rank.
+Monitors after close (Home):
+Monitor 2 — unchanged: all unsold Portfolio names, same strip, 5+3 chart, corridor in money, exit light.
+Monitor 3 — graph first (5+3+corridor). Under the graph a column of rows for every Portfolio name: ticker — forecast — fact — error in percent with + or −. Percent formula: named-incomplete. Click a row only changes the graph above.
+Monitor 1 — Watchlist is gone. Two table blocks, Postmarket only: entry-strip analysis; exit-strip analysis. Not shown during the session. Columns: named-incomplete.
+Travel layout on two screens: not specified here.
 
 
 
