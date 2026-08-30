@@ -137,7 +137,17 @@ Session traffic light = exit point (same visual language as Watchlist, opposite 
 Watchlist light = entry. Session light = exit.
 Market clock (canonical entity Trading Session) is calendar data, not this module.
 Click a Session ticker: only Monitor 3 shows that name. No other system state changes.
-
+## 11. IBKR, Watchlist and Session movement
+Status: architecture accepted 2026-08-30. Code: do not write.
+Laptop (Home): Interactive Brokers only. TIP is not on the laptop.
+Home and Travel are two layout mode buttons, not orders.
+IBKR enters TIP at read level only. TIP reads positions and fills. TIP does not send orders.
+Modules do not call each other. A buy or sell is a fact from IBKR into the shared space (GET / Archive APPEND). Local and confidential, not GitHub.
+### Movement
+- Selection → Watchlist (max 30, not bought).
+- Buy in IBKR → name leaves Watchlist and appears on Session (bought).
+- Sell → name leaves Session and is gone. It does not return to Watchlist.
+What happens to remaining Watchlist names at the end of the day is Postmarket. Not discussed in this section.
 
 
 
